@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from "styled-components";
 import WebFont from 'webfontloader';
 import { GlobalStyles } from './theme/GlobalStyles';
 import {useTheme} from './theme/useTheme';
+import ThemeSelector from './ThemeSelector';
 
 // 2: Create a cotainer
 const Container = styled.div`
@@ -13,6 +14,8 @@ function App() {
   // 3: Get the selected theme, font list, etc.
   const {theme, themeLoaded, getFonts} = useTheme();
   const [selectedTheme, setSelectedTheme] = useState(theme);
+  const [showDialog, setShowDialog] = useState(false);
+  const [newTheme, setNewTheme] = useState();
 
   useEffect(() => {
     setSelectedTheme(theme);
@@ -27,6 +30,16 @@ function App() {
     });
   });
 
+  // const manageDialog = () => {
+  //   setShowDialog(!showDialog);
+  // }
+
+  // const createTheme = newTheme => {
+  //   console.log(newTheme);
+  //   setShowDialog(false);
+  //   setNewTheme(newTheme);
+  // }
+
   // 5: Render if the theme is loaded.
   return (
     <>
@@ -39,6 +52,13 @@ function App() {
             This is a theming system with a Theme Switcher and Theme Builder.
             Do you want to see the source code? <a href="https://github.com/atapas/theme-builder" target="_blank">Click here.</a>
           </p>
+          {/* <button className="btn" onClick={ manageDialog }>Create a Theme</button>
+          <Dialog 
+            header="Create a Theme"
+            body={ <CreateThemeContent create={ createTheme }/> }
+            open={ showDialog } 
+            callback = { manageDialog }/> */}
+          <ThemeSelector setter={ setSelectedTheme } newTheme={ newTheme }/>
         </Container>
       </ThemeProvider>
     }
